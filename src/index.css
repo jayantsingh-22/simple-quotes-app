@@ -54,3 +54,7 @@ body {
   background-color: teal;
   color: white;
 }
+
+.prompt-modal>.btn{
+  margin: 0 0.5rem;
+}

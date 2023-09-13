@@ -1,10 +1,13 @@
-import { useRef } from 'react';
+import { useRef, useState, Fragment } from "react";
+import ReactRouterPrompt from "react-router-prompt";
 
-import Card from '../ui/Card';
-import LoadingSpinner from '../ui/LoadingSpinner';
-import classes from './QuoteForm.module.css';
+import Card from "../UI/Card";
+import LoadingSpinner from "../UI/LoadingSpinner";
+import classes from "./QuoteForm.module.css";
 
 const QuoteForm = (props) => {
+  const [isEntering, setIsEntering] = useState(false);
+
   const authorInputRef = useRef();
   const textInputRef = useRef();
 
@@ -19,28 +22,55 @@ const QuoteForm = (props) => {
     props.onAddQuote({ author: enteredAuthor, text: enteredText });
   }
 
-  return (
-    <Card>
-      <form className={classes.form} onSubmit={submitFormHandler}>
-        {props.isLoading && (
-          <div className={classes.loading}>
-            <LoadingSpinner />
-          </div>
-        )}
+  const formFocusedHandler = () => {
+    setIsEntering(true);
+  };
 
-        <div className={classes.control}>
-          <label htmlFor='author'>Author</label>
-          <input type='text' id='author' ref={authorInputRef} />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor='text'>Text</label>
-          <textarea id='text' rows='5' ref={textInputRef}></textarea>
-        </div>
-        <div className={classes.actions}>
-          <button className='btn'>Add Quote</button>
-        </div>
-      </form>
-    </Card>
+  return (
+    <Fragment>
+      <ReactRouterPrompt when={isEntering}>
+        {({ isActive, onConfirm, onCancel }) =>
+          isActive && (
+            <Card>
+              <div className="centered prompt-modal">
+                <p>Do you really want to leave?</p>
+                <button className="btn" onClick={onCancel}>
+                  Cancel
+                </button>
+                <button className="btn" onClick={onConfirm}>
+                  Ok
+                </button>
+              </div>
+            </Card>
+          )
+        }
+      </ReactRouterPrompt>
+      <Card>
+        <form
+          onFocus={formFocusedHandler}
+          className={classes.form}
+          onSubmit={submitFormHandler}
+        >
+          {props.isLoading && (
+            <div className={classes.loading}>
+              <LoadingSpinner />
+            </div>
+          )}
+
+          <div className={classes.control}>
+            <label htmlFor="author">Author</label>
+            <input type="text" id="author" ref={authorInputRef} />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor="text">Text</label>
+            <textarea id="text" rows="5" ref={textInputRef}></textarea>
+          </div>
+          <div className={classes.actions}>
+            <button className="btn">Add Quote</button>
+          </div>
+        </form>
+      </Card>
+    </Fragment>
   );
 };
 
