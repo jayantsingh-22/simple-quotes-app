@@ -35,10 +35,10 @@ const QuoteForm = (props) => {
               <div className="centered prompt-modal">
                 <p>Do you really want to leave?</p>
                 <button className="btn" onClick={onCancel}>
-                  Cancel
+                  No
                 </button>
                 <button className="btn" onClick={onConfirm}>
-                  Ok
+                  Yes!
                 </button>
               </div>
             </Card>
