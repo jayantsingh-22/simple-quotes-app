@@ -13,13 +13,20 @@ function App() {
       <Routes>
         <Route path="/" element={<AllQuotes />} />
         <Route path="/quotes" element={<AllQuotes />} />
-        <Route path="/quotes/:quoteId" element={<QuoteDetail />} />
+
+        <Route path="/quotes/:quoteId">
+          <Route index element={<QuoteDetail/>} />
+          <Route path="comments" element={<QuoteComments />} />
+        </Route>
+
         <Route path="/new-quote" element={<NewQuote />} />
-        <Route path="/quotes/:quoteId/comments" element={<QuoteComments />} />
+        
+        {/* Not Found Route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   );
 }
+
 
 export default App;
