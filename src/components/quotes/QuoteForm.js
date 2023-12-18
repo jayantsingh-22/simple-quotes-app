@@ -26,6 +26,10 @@ const QuoteForm = (props) => {
     setIsEntering(true);
   };
 
+  const addHandler =() => {
+    setIsEntering(false);
+  }
+
   return (
     <Fragment>
       <ReactRouterPrompt when={isEntering}>
@@ -66,7 +70,7 @@ const QuoteForm = (props) => {
             <textarea id="text" rows="5" ref={textInputRef}></textarea>
           </div>
           <div className={classes.actions}>
-            <button className="btn">Add Quote</button>
+            <button className="btn" onClick={addHandler}>Add Quote</button>
           </div>
         </form>
       </Card>
