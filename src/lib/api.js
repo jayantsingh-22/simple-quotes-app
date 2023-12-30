@@ -3,7 +3,6 @@ const FIREBASE_DOMAIN=process.env.REACT_APP_FIREBASE_DOMAIN;
 export async function getAllQuotes() {
   const response = await fetch(`${FIREBASE_DOMAIN}/quotes.json`);
   const data = await response.json();
-  console.log(response);
 
   if (!response.ok) {
     throw new Error(data.message || 'Could not fetch quotes.');
